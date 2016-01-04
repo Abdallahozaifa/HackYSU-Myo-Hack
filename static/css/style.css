@@ -1,0 +1,54 @@
+body {
+	margin-top: 2.5%;
+    text-align: center;
+    background-color: black;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+}
+
+
+header {
+	font-color: white;
+    font: bold 32px "Open Sans", sans-serif;
+}
+
+li {
+    padding: 0 50px;
+    display: inline-flex;
+    list-style-type: none;
+}
+
+header img {
+    height: 40px;
+    width: 25px;
+    padding: 0 5px;
+}
+
+a {
+    color: gray;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+a:hover {
+    color: darkgray;
+    text-decoration: underline;
+}
+
+hr {
+    width: 75%;
+}
+
+.controls {
+    padding-top: -90px;
+}
+div{
+    padding-top: 10px;
+}
+.creation{
+    padding-top: 20px;
+    font-weight: 650;
+}
+.controls, .pausegame{
+    font-weight: 900;
+}

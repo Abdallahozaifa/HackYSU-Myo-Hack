@@ -1,0 +1,19 @@
+application: jsgame-1180
+version: 1 
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /static
+  static_dir: static
+
+- url: /js
+  static_dir: js
+
+- url: /.*
+  script: jsgame.app
+
+libraries:
+- name: jinja2
+  version: latest
