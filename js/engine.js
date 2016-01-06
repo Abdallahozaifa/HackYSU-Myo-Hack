@@ -14,6 +14,7 @@
  * a little simpler to work with.
  */
 var quitMode = false;
+var leveledUp = false;
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * created the canvas element, grabed the 2D context for that canvas
@@ -29,6 +30,9 @@ var Engine = (function(global) {
     canvas.height = document.documentElement.clientHeight-300;
     doc.body.appendChild(canvas);
 
+    /* Testing audio, and still looking for good game audio
+    var audio = document.getElementsByTagName("audio")[0];
+    audio.play();*/
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -45,7 +49,7 @@ var Engine = (function(global) {
         /* Below the update/render functions are called, and passed along is the time delta to
          * our update function since it may be used for smooth animation.
          */
-        var audio = document.getElementsByTagName("audio")[0];
+
         
         // if the player is not selected render the characters screen
         if(playerSelected === false){
@@ -358,7 +362,7 @@ var Engine = (function(global) {
     // After you finish the level the game updates the field, the player, and the keys
     var finishLevel = function(){
         if(player.x === 503 && player.y === -20){
-            player.level++;
+            player.level++; // proceed to the next level
             swal({
                 title: "Great job!",
                 text: "Now on to level " + player.level + "!",
@@ -366,11 +370,17 @@ var Engine = (function(global) {
                 timer: 2000,
                 showConfirmButton: false
             });
+            //returns the keys, gems, and player in the playfield
             returnItems();
-            newGems();
+            window.leveledUp = true; // proceeded to the next level
+            newGems(); // randomize the location of the new gems
+            // reset the player back to the original location of the game
             player.x = 503;
             player.y = 380;
-            player.keys.length = 0;
+            player.keys.length = 0; // reset the keys to 0
+            setTimeout(function(){
+                window.leveledUp = false;
+            },2000);
         }
     }
 
@@ -486,7 +496,7 @@ var Engine = (function(global) {
         player.render();
     }
 
-    // returns the keys to false in order for them to be placed back on to the field
+    // returns the keys, gems, and heart to false in order for them to be placed back on to the field
     var returnItems = function(){
         keyOneTaken = false;
         keyTwoTaken = false;
@@ -546,7 +556,6 @@ var Engine = (function(global) {
         '../static/images/blueGem.png',
         '../static/images/orangeGem.png',
         '../static/images/greenGem.png',
-        '../static/images/black.jpeg',
         '../static/images/objective.png'
     ]);
     Resources.onReady(init);

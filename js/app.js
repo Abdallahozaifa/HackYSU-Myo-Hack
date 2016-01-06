@@ -370,6 +370,7 @@ Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
+        
 //handles what happens when the user presses the keys
 Player.prototype.handleInput = function(key){
     if (key === 'left') {
@@ -519,8 +520,8 @@ document.addEventListener('keyup', function(e){
         51: '3'
     };
 
-    // the player can move after a player is selected and the game is not paused and they didn't quit
-    if(playerSelected && gameProperties.gamePaused === false && quitMode === false){
+    // the player can move after a player is selected and the game is not paused, they didn't quit, and the game is not proceeding to the next level
+    if(playerSelected && gameProperties.gamePaused === false && quitMode === false && leveledUp === false){
         player.handleInput(allowedKeys[e.keyCode]);
     }else{
         // when the game is paused this handler handles the buttons pressed
