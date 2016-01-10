@@ -26,8 +26,22 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width =  document.documentElement.clientWidth-744;
-    canvas.height = document.documentElement.clientHeight-300;
+    // canvas.width =  document.documentElement.clientWidth-744;
+    // canvas.height = document.documentElement.clientHeight-300;
+    canvas.width = 1111;
+    canvas.height = 695;
+    //document.body.style.zoom="80%";
+    if($(document).width() >= 1855){
+        document.body.style.zoom="100%";
+    }else if($(document).width() < 1855){
+        document.body.style.zoom = "70%";
+    }
+
+    function unloadScrollBars() {
+        document.documentElement.style.overflow = 'hidden';  // firefox, chrome
+        document.body.scroll = "no"; // ie only
+    }
+    unloadScrollBars();
     doc.body.appendChild(canvas);
 
     /* Testing audio, and still looking for good game audio
@@ -220,7 +234,7 @@ var Engine = (function(global) {
          */
         
             var numRows = 7,
-            numCols = 18,
+            numCols = 11,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
