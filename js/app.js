@@ -200,6 +200,9 @@ var rule3 = "<li>3. Avoid touching a bug or water!</li><br></br>";
 var rule4 = "<li>4. You can gain a life every 3 levels!</li></span></ol>"
 var rules = rule1 + rule2 + rule3 + rule4;
 
+// contains weather the game is started or not
+var gameStarted = false;
+
 // event handler for the chooser when they select a character
 Chooser.prototype.handleInput = function(key) {
     var firstCharPos = 350;
@@ -219,6 +222,7 @@ Chooser.prototype.handleInput = function(key) {
             }
             break;
         case 'enter':
+            gameStarted = true;
             swal({
                 title: "",
                 text: rules,
@@ -527,9 +531,9 @@ document.addEventListener('keyup', function(e){
         // when the game is paused this handler handles the buttons pressed
         pauseScreen.handleInput(allowedKeys[e.keyCode]);
     }
-    /* when the start screen is turned of the selector handler is activated giving the ability 
+    /* when the start screen is turned and the game is not started the selector handler is activated giving the ability 
      select a character */
-    if(startScreenMode === false){ 
+    if(startScreenMode === false  && gameStarted === false){ 
         chooser.handleInput(allowedKeys[e.keyCode]);
     }
 });
