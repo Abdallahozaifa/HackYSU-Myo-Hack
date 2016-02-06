@@ -22,7 +22,7 @@ Myo.on('connected', function () {
 Myo.connect('com.myojs.emgGraphs');
 
 var allPoses = ["fist", "fist_off", "fingers_spread", "fingers_spread_off", "wave_in", "wave_in_off",
-    "wave_out", "wave_out_off", "wave_out_off", "double_tap_off"];
+    "wave_out", "wave_out_off", "wave_out_off", "double_tap_off", "double_tap"];
 
 var poseHandlers = [];
 
@@ -100,4 +100,8 @@ Myo.on("wave_in", function () {
 
 Myo.on("wave_out", function () {
     moveSelectorRight();
+});
+
+Myo.on("double_tap", function () {
+    chooser.activateEnter();
 });
