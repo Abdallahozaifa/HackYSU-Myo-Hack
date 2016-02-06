@@ -240,36 +240,40 @@ Chooser.prototype.characterHighlighted = function(){
 };
 
 Chooser.prototype.moveLeft = function () {
-    if (this.x < 350) {
-        this.x = this.x;
-    } else {
-        this.x = this.x - BLOCK_SIZE_X;
+    if (startScreenMode === false && gameStarted === false) {
+        if (this.x < 350) {
+            this.x = this.x;
+        } else {
+            this.x = this.x - BLOCK_SIZE_X;
+        }
     }
 };
 
 Chooser.prototype.moveRight = function () {
-    if (this.x > 350 * 2) {
-        this.x = this.x;
-    } else {
-        this.x = this.x + BLOCK_SIZE_X;
+    if (startScreenMode === false && gameStarted === false) {
+        if (this.x > 350 * 2) {
+            this.x = this.x;
+        } else {
+            this.x = this.x + BLOCK_SIZE_X;
+        }
     }
 };
 
 Chooser.prototype.activateEnter = function () {
-    if(startScreenMode === false  && gameStarted === false){
+    if (startScreenMode === false && gameStarted === false) {
         gameStarted = true;
-                swal({
-                    title: "",
-                    text: rules,
-                    html: true,
-                    timer: 4000,
-                    imageUrl: "../static/images/objective.png",
-                    showConfirmButton: false,
-                    
-                });
-                setTimeout(function(){
-                    playerSelected = true;
-                }, 4000);
+        swal({
+            title: "",
+            text: rules,
+            html: true,
+            timer: 4000,
+            imageUrl: "../static/images/objective.png",
+            showConfirmButton: false,
+
+        });
+        setTimeout(function () {
+            playerSelected = true;
+        }, 4000);
     }
 };
 
@@ -423,13 +427,17 @@ Player.prototype.handleInput = function(key){
 };
 
 Player.prototype.moveLeft = function(){
-    movePlayerOnePixel();
-    this.x -= (this.x - 99 < this.xRange[0]) ? 0 : 101;
+    if (gameStarted === true) {
+        movePlayerOnePixel();
+        this.x -= (this.x - 99 < this.xRange[0]) ? 0 : 101;
+    }
 };
 
 Player.prototype.moveRight = function(){
-    movePlayerOnePixel();
-    this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
+    if (gameStarted === true) {
+        movePlayerOnePixel();
+        this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
+    }
 };
 
 Player.prototype.moveUp = function(){

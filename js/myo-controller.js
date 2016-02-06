@@ -106,12 +106,12 @@ Myo.on("wave_out", function () {
 ///// PLAYER MOVEMENT /////
 
 var movePlayerLeft = function(){
-    player.movePlayerLeft();
-}
+    player.moveLeft();
+};
 
 var movePlayerRight = function(){
-    player.movePlayerRight();
-}
+    player.moveRight();
+};
 Myo.on("wave_in", function () {
     movePlayerLeft();
 });
@@ -123,4 +123,7 @@ Myo.on("wave_out", function () {
 Myo.on("double_tap", function () {
     chooser.activateEnter();
 });
+
+///// Orientation debug //////
+
 
