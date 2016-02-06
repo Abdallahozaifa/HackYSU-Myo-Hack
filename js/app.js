@@ -256,19 +256,21 @@ Chooser.prototype.moveRight = function () {
 };
 
 Chooser.prototype.activateEnter = function () {
-    gameStarted = true;
-            swal({
-                title: "",
-                text: rules,
-                html: true,
-                timer: 4000,
-                imageUrl: "../static/images/objective.png",
-                showConfirmButton: false,
-                
-            });
-            setTimeout(function(){
-                playerSelected = true;
-            }, 4000);
+    if(startScreenMode === false  && gameStarted === false){
+        gameStarted = true;
+                swal({
+                    title: "",
+                    text: rules,
+                    html: true,
+                    timer: 4000,
+                    imageUrl: "../static/images/objective.png",
+                    showConfirmButton: false,
+                    
+                });
+                setTimeout(function(){
+                    playerSelected = true;
+                }, 4000);
+    }
 };
 
 /* ENEMY CLASS */

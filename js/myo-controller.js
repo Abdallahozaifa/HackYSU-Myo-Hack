@@ -102,7 +102,7 @@ Myo.on("wave_out", function () {
     moveSelectorRight();
 });
 
-<<<<<<< HEAD
+
 ///// PLAYER MOVEMENT /////
 
 var movePlayerLeft = function(){
@@ -119,8 +119,8 @@ Myo.on("wave_in", function () {
 Myo.on("wave_out", function () {
     movePlayerRight();
 });
-=======
+
 Myo.on("double_tap", function () {
     chooser.activateEnter();
 });
->>>>>>> 27a4d7046ee4bdf539dd1c5871800abf15cb78ce
+
