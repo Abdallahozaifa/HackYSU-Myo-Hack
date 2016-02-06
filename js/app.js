@@ -1,7 +1,7 @@
 //screen object that the pause and start screen inherit from
 var Screen = function(){
     this.alpha = 1;
-} 
+};
 
 // renders the black transparent cover of the canvas
 Screen.prototype.renderOverLay = function(){
@@ -12,7 +12,7 @@ Screen.prototype.renderOverLay = function(){
     ctx.strokeStyle = 'white';
     ctx.lineWidth = 2;
     ctx.strokeRect(10, 60, ctx.canvas.width - 20, ctx.canvas.height - 100);
-}
+};
 
 // draws a title on the canvas
 Screen.prototype.drawTitle = function(title, x, y) {
@@ -23,7 +23,7 @@ Screen.prototype.drawTitle = function(title, x, y) {
     ctx.fillText(title, x+3, y+3);
     ctx.fillStyle = 'white';
     ctx.fillText(title, x, y);
-}
+};
 
 // pause screen
 var PauseScreen = function(){
@@ -31,12 +31,12 @@ var PauseScreen = function(){
     this.easy = false;
     this.medium = false;
     this.difficult = false;
-}
+};
 
 // short hand notation for javascript inheritance
 var inheritsFrom = function (child, parent) {
     child.prototype = Object.create(parent.prototype);
-}
+};
 
 // determines wether the game is still on the start screen or not
 var startScreenMode = true;
@@ -44,7 +44,7 @@ var startScreenMode = true;
 // start screen 
 var StartScreen = function(){
     this.alpha = 0.90;
-}
+};
 
 inheritsFrom(PauseScreen,Screen); // Pause Screen inherits from Screen 
 inheritsFrom(StartScreen, PauseScreen); // Start Screen inherits from Pause Screen
@@ -58,7 +58,7 @@ var difficultMode = false;
 PauseScreen.prototype.toggleGameMode = function(mode){
     mode = !mode;
     return mode;
-}
+};
 
 // renders the pause screen and start screen on the canvas
 PauseScreen.prototype.render = function() { 
@@ -72,7 +72,7 @@ PauseScreen.prototype.render = function() {
         this.drawGameModeText('../static/images/3-icon.png', 'Difficult', difficultMode, 500);
         this.drawEscapeMessage(595);
         //this.drawCreation(595);
-}
+};
 
 //draws the game text on the pause and start screen
 PauseScreen.prototype.drawGameModeText = function(image, modeText, isOn, y) {
@@ -99,7 +99,7 @@ PauseScreen.prototype.drawGameModeText = function(image, modeText, isOn, y) {
     } 
     ctx.drawImage(Resources.get(image), ctx.canvas.width/2-170, y-5);
     ctx.fillText(gameModeText, ctx.canvas.width/2-80, y + 40);
-}
+};
 
 // draws the escape method on the bottom of the pause and start screen
 PauseScreen.prototype.drawEscapeMessage = function(y) {
@@ -108,7 +108,7 @@ PauseScreen.prototype.drawEscapeMessage = function(y) {
     ctx.textAlign = 'center';
     ctx.fillText('Press       to play game', ctx.canvas.width/2+20, y+20);
     ctx.drawImage(Resources.get('../static/images/esc-icon-lower.png'), ctx.canvas.width/2 - 55, y-10);
-}
+};
 
 // draws the game rules on the pause and start screen
 PauseScreen.prototype.drawGameRules = function(){
@@ -120,7 +120,7 @@ PauseScreen.prototype.drawGameRules = function(){
     ctx.drawImage(Resources.get('../static/images/arrow-down-icon-lower.png'),ctx.canvas.width/2,230);
     ctx.drawImage(Resources.get('../static/images/arrow-left-icon-lower.png'),ctx.canvas.width/2-46,208);
     ctx.drawImage(Resources.get('../static/images/arrow-right-icon-lower.png'),ctx.canvas.width/2+46,208);
-}
+};
 
 // event handler for the pause screen
 PauseScreen.prototype.handleInput = function(key){
@@ -136,25 +136,25 @@ PauseScreen.prototype.handleInput = function(key){
     }else if(key === '3'){
         this.activateHard();
     }
-}
+};
 
 PauseScreen.prototype.activateEasy = function(){
     mediumMode = false;
     difficultMode = false;
     easyMode = true;
-}
+};
 
 PauseScreen.prototype.activateMedium = function(){
     easyMode = false;
     difficultMode = false;
     mediumMode = true;
-}
+};
 
 PauseScreen.prototype.activateHard = function(){
     easyMode = false;
     mediumMode = false;
     difficultMode = true;
-}
+};
 
 PauseScreen.prototype.activateEscape = function(){
     //if the user doesn't choose a game mode display an error message with sweet alert
@@ -168,12 +168,12 @@ PauseScreen.prototype.activateEscape = function(){
         if(gameProperties.gamePaused === true){
             gameProperties.gamePaused = !gameProperties.gamePaused;
         }
-}
+};
 
 // game properties object that notifies other objects when the game is paused
 var GameProperties = function(){
     this.gamePaused = false;
-}
+};
 
 var BLOCK_SIZE_X = 101, // x length of each block
     BLOCK_SIZE_Y = 80, // y length of each block 
@@ -212,8 +212,8 @@ var playerSelected = false;
 // outputs this to the player through sweet alert message
 var rule1 = "<ol style='color:#0099ff'><span style='font-size:20px'><li>1. Obtain all 5 keys and be careful!</li><br/><br/>";
 var rule2 = "<li>2. Proceed to the hidden door!</li><br/><br/>";
-var rule3 = "<li>3. Avoid touching a bug or water!</li><br></br>";
-var rule4 = "<li>4. You can gain a life every 3 levels!</li></span></ol>"
+var rule3 = "<li>3. Avoid touching a bug or water!</li><br>";
+var rule4 = "<li>4. You can gain a life every 3 levels!</li></span></ol>";
 var rules = rule1 + rule2 + rule3 + rule4;
 
 // contains weather the game is started or not
@@ -233,12 +233,12 @@ Chooser.prototype.handleInput = function(key) {
             this.activateEnter(firstCharPos);
             break;
     }
-}
+};
 
 //obtains the highlighted character
 Chooser.prototype.characterHighlighted = function(){
     return chooseEntity(Math.floor(this.x / BLOCK_SIZE_X) - 1, characters);
-}
+};
 
 Chooser.prototype.moveLeft = function(firstCharPos){
     if (this.x < firstCharPos) {
@@ -246,7 +246,7 @@ Chooser.prototype.moveLeft = function(firstCharPos){
     } else {
         this.x = this.x - BLOCK_SIZE_X;
     }
-}
+};
 
 Chooser.prototype.moveRight = function(firstCharPos){
     if (this.x > firstCharPos * 2) {
@@ -254,7 +254,7 @@ Chooser.prototype.moveRight = function(firstCharPos){
     } else {
         this.x = this.x + BLOCK_SIZE_X;
     }
-}
+};
 
 Chooser.prototype.activateEnter = function(firstCharPos){
     gameStarted = true;
@@ -270,7 +270,8 @@ Chooser.prototype.activateEnter = function(firstCharPos){
             setTimeout(function(){
                 playerSelected = true;
             }, 4000);
-}
+};
+
 /* ENEMY CLASS */
 // Enemies our player must avoid
 var enemyLowestSpeed = 300, enemyHighestSpeed = 700;
@@ -281,7 +282,7 @@ var Enemy = function() {
     this.startPos = this.xRange[0]; 
     this.maxPos = this.xRange[1];
     this.reset();
-}
+};
 
 Enemy.prototype.update = function(dt) {
 // multiplying by the dt parameter ensures that the game runs at the same speed for all computers
@@ -303,12 +304,12 @@ Enemy.prototype.update = function(dt) {
     if(this.x >= this.maxPos){
         this.reset();
     }
-}
+};
 
 //choses a random colored bug 
 Enemy.prototype.randomBug = function(){
     return chooseEntity(Math.floor(Math.random()*6), enemies);
-}
+};
 
 // resets the enemy back to the start position with a random speed
 Enemy.prototype.reset = function(){
@@ -316,22 +317,22 @@ Enemy.prototype.reset = function(){
     this.x = this.startPos;
     this.y = this.getRandomEnemy();
     this.speed  = this.getSpeed(enemyLowestSpeed, enemyHighestSpeed);
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 //gets a random enemy used during the reset
 Enemy.prototype.getRandomEnemy = function(){
     return this.yStartPos[Math.floor(Math.random() * 3)];
-}
+};
 
 //gets a random speed between 200 and 600
 Enemy.prototype.getSpeed = function(minEnemySpeed, maxEnemySpeed){
     return Math.floor(Math.random()*(maxEnemySpeed - minEnemySpeed + 1)) + minEnemySpeed;
-}
+};
 
 /* PLAYER CLASS */
 // The user will control this player
@@ -346,10 +347,10 @@ var Player = function(){
     this.keys = [];
     this.level = 1;
     this.reset();
-}
+};
 
 //keytaken variables that stores if the key is taken or not
-var keyOneTaken = false, keyTwoTaken = false
+var keyOneTaken = false, keyTwoTaken = false;
      keyThreeTaken = false, keyFourTaken = false, keyFiveTaken = false;
 
 //update method that updates the field every instance invoked in engine.js
@@ -360,15 +361,15 @@ Player.prototype.update = function(){
     document.getElementsByClassName('level')[0].innerHTML = 'Level: ' + this.level;
     document.getElementsByClassName('keys')[0].innerHTML = 'Keys:  ' + this.keys.join("");
     document.getElementsByClassName('lives')[0].innerHTML = 'Lives:  ' + this.lives.join("");
-}
+};
 
 // if the players position is the same as the gems
 Player.prototype.gemEquals = function(x,y){
-    if(player.x === x && player.y === y){
+    if (player.x === x && player.y === y) {
         return true;
     }
     return false;
-}
+};
 
 // obtains the selected player image
 var chooseEntity = function(characterSelected, array){
@@ -394,12 +395,12 @@ var chooseEntity = function(characterSelected, array){
             break;
     }
     return character;
-}
+};
 
 // renders the player image on the field starting from the starting position
 Player.prototype.render = function(){
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
         
 //handles what happens when the user presses the keys
@@ -418,27 +419,27 @@ Player.prototype.handleInput = function(key){
 
     // var coords = this.printCoordinates();
     // console.log(coords);
-}
+};
 
 Player.prototype.moveLeft = function(){
     movePlayerOnePixel();
     this.x -= (this.x - 99 < this.xRange[0]) ? 0 : 101;
-}
+};
 
 Player.prototype.moveRight = function(){
     movePlayerOnePixel();
     this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
-}
+};
 
 Player.prototype.moveUp = function(){
     movePlayerOnePixel();
     this.y -= (this.y - 80 < this.yRange[0]) ? 0 : 80;
-}
+};
 
 Player.prototype.moveDown = function(){
     movePlayerOnePixel();
     this.y += (this.y + 80 > this.yRange[1]) ? 0 : 80;
-}
+};
 
 // the player was moved one pixel in the engine.js file to prevent from adding to the total score multiple times
 var movePlayerOnePixel = function(){
@@ -457,7 +458,7 @@ var movePlayerOnePixel = function(){
     if(player.gemEquals((heartItem.x)+1, heartItem.y)){
         player.x-=1;
     }
-}
+};
 
 // checks to see if the player
 Player.prototype.checkCollisions = function(){
@@ -481,7 +482,7 @@ Player.prototype.checkCollisions = function(){
             }
         });
     }
-}
+};
 
 // prohibits the player from touching the water
 Player.prototype.prohibitWater = function(){
@@ -498,7 +499,7 @@ Player.prototype.prohibitWater = function(){
     }else if(this.x === 1008 && this.y === -20){
         this.reset();
     }
-}
+};
 
 // total score variable
 var totalScore = 0;
@@ -507,8 +508,8 @@ var totalScore = 0;
 Player.prototype.reset = function(){
     this.x = 503;
     this.y = 380;
-    this.lives.pop();    
-}
+    this.lives.pop();
+};
 
 // formatter method for the coordinates
 Player.prototype.sprintf = function(){
@@ -535,7 +536,7 @@ Player.prototype.sprintf = function(){
         }
         return val;
     });
-}
+};
 
 // prints the coordinates for testing purposes
 Player.prototype.printCoordinates = function() {
