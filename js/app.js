@@ -337,7 +337,7 @@ Player.prototype.update = function(){
 
 // if the players position is the same as the gems
 Player.prototype.gemEquals = function(x,y){
-    if(player.x === x & player.y === y){
+    if(player.x === x && player.y === y){
         return true;
     }
     return false;
@@ -378,23 +378,39 @@ Player.prototype.render = function(){
 //handles what happens when the user presses the keys
 Player.prototype.handleInput = function(key){
     if (key === 'left') {
-        movePlayerOnePixel();
-        this.x -= (this.x - 99 < this.xRange[0]) ? 0 : 101;
+        this.moveLeft();
     } else if (key === 'right') {
-        movePlayerOnePixel();
-        this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
+        this.moveRight();
     } else if (key === 'up') {
-        movePlayerOnePixel();
-        this.y -= (this.y - 80 < this.yRange[0]) ? 0 : 80;
+        this.moveUp();
     } else if (key === 'down') {
-        movePlayerOnePixel();
-        this.y += (this.y + 80 > this.yRange[1]) ? 0 : 80;
+        this.moveDown();
     } else if(key === 'esc'){
         gameProperties.gamePaused = !gameProperties.gamePaused;
     }
 
     // var coords = this.printCoordinates();
     // console.log(coords);
+}
+
+Player.prototype.moveLeft = function(){
+    movePlayerOnePixel();
+    this.x -= (this.x - 99 < this.xRange[0]) ? 0 : 101;
+}
+
+Player.prototype.moveRight = function(){
+    movePlayerOnePixel();
+    this.x += (this.x + 101 > this.xRange[1]) ? 0 : 101;
+}
+
+Player.prototype.moveUp = function(){
+    movePlayerOnePixel();
+    this.y -= (this.y - 80 < this.yRange[0]) ? 0 : 80;
+}
+
+Player.prototype.moveDown = function(){
+    movePlayerOnePixel();
+    this.y += (this.y + 80 > this.yRange[1]) ? 0 : 80;
 }
 
 // the player was moved one pixel in the engine.js file to prevent from adding to the total score multiple times
