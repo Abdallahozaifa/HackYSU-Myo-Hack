@@ -120,7 +120,13 @@ Myo.on("wave_out", function () {
     movePlayerRight();
 });
 
+var firstDoubleTap = true;
+
 Myo.on("double_tap", function () {
+    if (firstDoubleTap) {
+        Myo.myos[0].zeroOrientation();
+        firstDoubleTap = false;
+    }
     chooser.activateEnter();
 });
 
@@ -128,12 +134,97 @@ Myo.on("double_tap", function () {
 
 var injectDebugData = function (elemID, str) {
     var elem = document.getElementById(elemID);
-    elem.innerHTML = str;
+    elem.innerHTML = str.substring(0, 10);
+};
+
+var getDebugData = function (elemID) {
+    var elem = document.getElementById(elemID);
+    return elem.innerHTML;
 };
 
 Myo.on("orientation", function (data) {
-    injectDebugData("orientation-X", data.x);
-    injectDebugData("orientation-Y", data.y);
-    injectDebugData("orientation-Z", data.z);
-    injectDebugData("orientation-W", data.w);
+    injectDebugData("orientation-X", "X: " + data.x);
+    injectDebugData("orientation-Y", "Y: " + data.y);
+    injectDebugData("orientation-Z", "Z: " + data.z);
+    injectDebugData("orientation-W", "W: " + data.w);
+    saveRanges(data);
+});
+
+var Xmin = 5;
+var Xmax = -5;
+var Ymin = 5;
+var Ymax = -5;
+var Zmin = 5;
+var Zmax = -5;
+var Wmin = 5;
+var Wmax = -5;
+
+var shiftDown = false;
+var printRanges = false;
+var saveRanges = function (data) {
+    if (shiftDown) {
+        printRanges = true;
+        // record mins maxes
+        if (data.x > Xmax) Xmax = data.x;
+        if (data.x < Xmin) Xmin = data.x;
+        if (data.y > Ymax) Ymax = data.y;
+        if (data.y < Ymin) Xmin = data.y;
+        if (data.z > Zmax) Zmax = data.z;
+        if (data.z < Zmin) Zmin = data.z;
+        if (data.w > Wmax) Wmax = data.w;
+        if (data.w < Wmin) Wmin = data.w;
+    } else {
+        if (printRanges) {
+            //console.log(JSON.stringify(X));
+            //console.log(JSON.stringify(Y));
+            //console.log(JSON.stringify(Z));
+            //console.log(JSON.stringify(W));
+            printRanges = false;
+        }
+        Xmin = 5;
+        Xmax = -5;
+        Ymin = 5;
+        Ymax = -5;
+        Zmin = 5;
+        Zmax = -5;
+        Wmin = 5;
+        Wmax = -5;
+    }
+};
+
+var checkShift = function (fn, self) {
+    return function (event) {
+        if (event.shiftKey) {
+            shiftDown = true;
+            //console.log(getDebugData("orientation-X"));
+            //console.log(getDebugData("orientation-Y"));
+            //console.log(getDebugData("orientation-Z"));
+            //console.log(getDebugData("orientation-W"));
+            console.log("-----");
+        } else {
+            shiftDown = false;
+        }
+        return true;
+    };
+};
+
+$(document).on('keydown', checkShift(this.enterMode, this));
+$(document).on('keyup', function () {
+    shiftDown = false;
+    console.log("X min: " + Xmin);
+    console.log(" X max: " + Xmax);
+    console.log("Y min: " + Ymin);
+    console.log(" Y max: " + Ymax);
+    console.log("Z min: " + Zmin);
+    console.log(" Z max: " + Zmax);
+    console.log("W min: " + Wmin);
+    console.log(" W max: " + Wmax);
+    Xmin = 5;
+    Xmax = -5;
+    Ymin = 5;
+    Ymax = -5;
+    Zmin = 5;
+    Zmax = -5;
+    Wmin = 5;
+    Wmax = -5;
 });
