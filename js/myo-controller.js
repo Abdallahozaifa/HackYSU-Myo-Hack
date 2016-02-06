@@ -126,4 +126,14 @@ Myo.on("double_tap", function () {
 
 ///// Orientation debug //////
 
+var injectDebugData = function (elemID, str) {
+    var elem = document.getElementById(elemID);
+    elem.innerHTML = str;
+};
 
+Myo.on("orientation", function (data) {
+    injectDebugData("orientation-X", data.x);
+    injectDebugData("orientation-Y", data.y);
+    injectDebugData("orientation-Z", data.z);
+    injectDebugData("orientation-W", data.w);
+});
