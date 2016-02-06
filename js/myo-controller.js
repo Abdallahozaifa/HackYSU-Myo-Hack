@@ -86,10 +86,18 @@ difficultySelector[selectedDifficultyIndex]();
 var LEFT_KEY = 37;
 var RIGHT_KEY = 39;
 
-Myo.on("wave_in", function () {
+var moveSelectorLeft = function(){
+    chooser.moveLeft();
+}
 
+var moveSelectorLeft = function(){
+    chooser.moveRight();
+}
+
+Myo.on("wave_in", function () {
+    moveSelectorLeft();
 });
 
 Myo.on("wave_out", function () {
-
+    moveSelectorRight();
 });
