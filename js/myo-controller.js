@@ -45,6 +45,9 @@ Myo.on('disconnect', function () {
 ////    MYO CONTROLS        ////
 ////////////////////////////////
 
+
+///// LEVEL SELECTION /////
+
 var difficultySelector = [pauseScreen.activateEasy, pauseScreen.activateMedium, pauseScreen.activateHard];
 
 var selectedDifficultyIndex = 0; // 0 is easy, 1 is medium, 2 is hard
@@ -60,6 +63,14 @@ var goToPrevLevel = function () {
     difficultySelector[selectedDifficultyIndex]();
 };
 
+var completeLevelSelection = function () {
+    pauseScreen.activateEscape();
+};
+
+Myo.on("fingers_spread", function () {
+    completeLevelSelection();
+});
+
 Myo.on("wave_in", function () {
     goToNextLevel();
 });
@@ -69,3 +80,16 @@ Myo.on("wave_out", function () {
 });
 
 difficultySelector[selectedDifficultyIndex]();
+
+///// PLAYER SELECTION /////
+
+var LEFT_KEY = 37;
+var RIGHT_KEY = 39;
+
+Myo.on("wave_in", function () {
+
+});
+
+Myo.on("wave_out", function () {
+
+});
