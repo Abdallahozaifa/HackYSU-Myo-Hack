@@ -221,16 +221,15 @@ var gameStarted = false;
 
 // event handler for the chooser when they select a character
 Chooser.prototype.handleInput = function(key) {
-    var firstCharPos = 350;
     switch (key) {
         case 'left':
-            this.moveLeft(firstCharPos);
+            this.moveLeft();
             break;
         case 'right':
-            this.moveRight(firstCharPos);
+            this.moveRight();
             break;
         case 'enter':
-            this.activateEnter(firstCharPos);
+            this.activateEnter();
             break;
     }
 };
@@ -240,23 +239,23 @@ Chooser.prototype.characterHighlighted = function(){
     return chooseEntity(Math.floor(this.x / BLOCK_SIZE_X) - 1, characters);
 };
 
-Chooser.prototype.moveLeft = function(firstCharPos){
-    if (this.x < firstCharPos) {
+Chooser.prototype.moveLeft = function () {
+    if (this.x < 350) {
         this.x = this.x;
     } else {
         this.x = this.x - BLOCK_SIZE_X;
     }
 };
 
-Chooser.prototype.moveRight = function(firstCharPos){
-    if (this.x > firstCharPos * 2) {
+Chooser.prototype.moveRight = function () {
+    if (this.x > 350 * 2) {
         this.x = this.x;
     } else {
         this.x = this.x + BLOCK_SIZE_X;
     }
 };
 
-Chooser.prototype.activateEnter = function(firstCharPos){
+Chooser.prototype.activateEnter = function () {
     gameStarted = true;
             swal({
                 title: "",

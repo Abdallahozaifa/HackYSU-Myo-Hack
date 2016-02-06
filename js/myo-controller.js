@@ -88,11 +88,11 @@ var RIGHT_KEY = 39;
 
 var moveSelectorLeft = function(){
     chooser.moveLeft();
-}
+};
 
-var moveSelectorLeft = function(){
+var moveSelectorRight = function () {
     chooser.moveRight();
-}
+};
 
 Myo.on("wave_in", function () {
     moveSelectorLeft();
