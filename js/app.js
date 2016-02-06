@@ -268,8 +268,7 @@ Chooser.prototype.activateEnter = function () {
             html: true,
             timer: 4000,
             imageUrl: "../static/images/objective.png",
-            showConfirmButton: false,
-
+            showConfirmButton: false
         });
         setTimeout(function () {
             playerSelected = true;
