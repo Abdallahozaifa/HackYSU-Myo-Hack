@@ -101,3 +101,20 @@ Myo.on("wave_in", function () {
 Myo.on("wave_out", function () {
     moveSelectorRight();
 });
+
+///// PLAYER MOVEMENT /////
+
+var movePlayerLeft = function(){
+    player.movePlayerLeft();
+}
+
+var movePlayerRight = function(){
+    player.movePlayerRight();
+}
+Myo.on("wave_in", function () {
+    movePlayerLeft();
+});
+
+Myo.on("wave_out", function () {
+    movePlayerRight();
+});
