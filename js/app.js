@@ -224,10 +224,18 @@ Chooser.prototype.handleInput = function(key) {
     var firstCharPos = 350;
     switch (key) {
         case 'left':
-            this.moveLeft(firstCharPos);
+            if (this.x < firstCharPos) {
+                this.x = this.x;
+            } else {
+                this.moveLeft();
+            }
             break;
         case 'right':
-            this.moveRight(firstCharPos);
+            if (this.x > firstCharPos * 2) {
+                this.x = this.x;
+            } else {
+                this.moveRight();
+            }
             break;
         case 'enter':
             this.activateEnter(firstCharPos);
@@ -241,19 +249,11 @@ Chooser.prototype.characterHighlighted = function(){
 };
 
 Chooser.prototype.moveLeft = function(firstCharPos){
-    if (this.x < firstCharPos) {
-        this.x = this.x;
-    } else {
-        this.x = this.x - BLOCK_SIZE_X;
-    }
+    this.x = this.x - BLOCK_SIZE_X;
 };
 
 Chooser.prototype.moveRight = function(firstCharPos){
-    if (this.x > firstCharPos * 2) {
-        this.x = this.x;
-    } else {
-        this.x = this.x + BLOCK_SIZE_X;
-    }
+    this.x = this.x + BLOCK_SIZE_X;
 };
 
 Chooser.prototype.activateEnter = function(firstCharPos){
