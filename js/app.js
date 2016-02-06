@@ -125,7 +125,39 @@ PauseScreen.prototype.drawGameRules = function(){
 // event handler for the pause screen
 PauseScreen.prototype.handleInput = function(key){
     if(key === 'esc'){
-        //if the user doesn't choose a game mode display an error message with sweet alert
+        this.activateEscape();
+    // when 1 is pressed it toggles the easy mode on and all others off
+    }else if(key === '1'){
+        this.activateEasy();
+    // when 2 is pressed it toggles the medium mode on and all others off     
+    }else if(key === '2'){
+        this.activateMedium();
+    // when 3 is pressed it toggles the hard mode on and all others off
+    }else if(key === '3'){
+        this.activateHard();
+    }
+}
+
+PauseScreen.prototype.activateEasy = function(){
+    mediumMode = false;
+    difficultMode = false;
+    easyMode = true;
+}
+
+PauseScreen.prototype.activateMedium = function(){
+    easyMode = false;
+    difficultMode = false;
+    mediumMode = true;
+}
+
+PauseScreen.prototype.activateHard = function(){
+    easyMode = false;
+    mediumMode = false;
+    difficultMode = true;
+}
+
+PauseScreen.prototype.activateEscape = function(){
+    //if the user doesn't choose a game mode display an error message with sweet alert
         if(easyMode === false && mediumMode === false && difficultMode === false){
             swal("Oops!", "Please choose a game mode to play!", "error");
         // once the user leaves the start screen with a chosen mode turn off the start screen
@@ -136,22 +168,6 @@ PauseScreen.prototype.handleInput = function(key){
         if(gameProperties.gamePaused === true){
             gameProperties.gamePaused = !gameProperties.gamePaused;
         }
-    // when 1 is pressed it toggles the easy mode on and all others off
-    }else if(key === '1'){
-        mediumMode = false;
-        difficultMode = false;
-        easyMode = true;
-    // when 2 is pressed it toggles the medium mode on and all others off     
-    }else if(key === '2'){
-        easyMode = false;
-        difficultMode = false;
-        mediumMode = true;
-    // when 3 is pressed it toggles the hard mode on and all others off
-    }else if(key === '3'){
-        easyMode = false;
-        mediumMode = false;
-        difficultMode = true;
-    }
 }
 
 // game properties object that notifies other objects when the game is paused
@@ -208,21 +224,40 @@ Chooser.prototype.handleInput = function(key) {
     var firstCharPos = 350;
     switch (key) {
         case 'left':
-            if (this.x < firstCharPos) {
-                this.x = this.x;
-            } else {
-                this.x = this.x - BLOCK_SIZE_X;
-            }
+            this.moveLeft(firstCharPos);
             break;
         case 'right':
-            if (this.x > firstCharPos * 2) {
-                this.x = this.x;
-            } else {
-                this.x = this.x + BLOCK_SIZE_X;
-            }
+            this.moveRight(firstCharPos);
             break;
         case 'enter':
-            gameStarted = true;
+            this.activateEnter(firstCharPos);
+            break;
+    }
+}
+
+//obtains the highlighted character
+Chooser.prototype.characterHighlighted = function(){
+    return chooseEntity(Math.floor(this.x / BLOCK_SIZE_X) - 1, characters);
+}
+
+Chooser.prototype.moveLeft = function(firstCharPos){
+    if (this.x < firstCharPos) {
+        this.x = this.x;
+    } else {
+        this.x = this.x - BLOCK_SIZE_X;
+    }
+}
+
+Chooser.prototype.moveRight = function(firstCharPos){
+    if (this.x > firstCharPos * 2) {
+        this.x = this.x;
+    } else {
+        this.x = this.x + BLOCK_SIZE_X;
+    }
+}
+
+Chooser.prototype.activateEnter = function(firstCharPos){
+    gameStarted = true;
             swal({
                 title: "",
                 text: rules,
@@ -235,15 +270,7 @@ Chooser.prototype.handleInput = function(key) {
             setTimeout(function(){
                 playerSelected = true;
             }, 4000);
-            break;
-    }
 }
-
-//obtains the highlighted character
-Chooser.prototype.characterHighlighted = function(){
-    return chooseEntity(Math.floor(this.x / BLOCK_SIZE_X) - 1, characters);
-}
-
 /* ENEMY CLASS */
 // Enemies our player must avoid
 var enemyLowestSpeed = 300, enemyHighestSpeed = 700;
